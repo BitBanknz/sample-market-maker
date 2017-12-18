@@ -1,4 +1,4 @@
-BitMEX Market Maker
+BitBank/BitMEX Market Maker
 ===================
 
 This is a sample market making bot for use with [BitMEX](https://www.bitmex.com).
@@ -26,7 +26,8 @@ It is free to use and modify for your own strategies. It provides the following:
 
 Getting Started
 ---------------
-
+1. Create a [BitBank.nz 1 day free trial Account for Live Crypto Forecasts](https://BitBank.nz)
+1. copy your api key to YOUR_API_KEY
 1. Create a [Testnet BitMEX Account](https://testnet.bitmex.com) and [deposit some TBTC](https://testnet.bitmex.com/app/deposit).
 1. Get dependencies: `python setup.py install`
     * This will create a `settings.py` file at the root. Modify this file to tune parameters.
