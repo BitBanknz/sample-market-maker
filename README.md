@@ -1,7 +1,7 @@
 BitBank/BitMEX Market Maker
 ===================
 
-This is a sample market making bot for use with [BitMEX](https://www.bitmex.com).
+A fork of the sample market making bot for use with [BitMEX](https://www.bitmex.com) edited to have some sensible defaults for trading ethereum futures and to take into account projections in the base poloniex price from the https://BitBank.nz API
 
 It is free to use and modify for your own strategies. It provides the following:
 
