@@ -19,7 +19,7 @@ API_SECRET = ""
 ########################################################################################################################
 
 # Instrument to market make on BitMEX.
-SYMBOL = "XBTUSD"
+SYMBOL = "ETHXBT"
 
 
 ########################################################################################################################
@@ -27,13 +27,13 @@ SYMBOL = "XBTUSD"
 ########################################################################################################################
 
 # How many pairs of buy/sell orders to keep open
-ORDER_PAIRS = 6
+ORDER_PAIRS = 2
 
 # ORDER_START_SIZE will be the number of contracts submitted on level 1
 # Number of contracts from level 1 to ORDER_PAIRS - 1 will follow the function
 # [ORDER_START_SIZE + ORDER_STEP_SIZE (Level -1)]
-ORDER_START_SIZE = 100
-ORDER_STEP_SIZE = 100
+ORDER_START_SIZE = 1
+ORDER_STEP_SIZE = 0
 
 # Distance between successive orders, as a percentage (example: 0.005 for 0.5%)
 INTERVAL = 0.005
@@ -65,8 +65,8 @@ RELIST_INTERVAL = 0.01
 # Position limits - set to True to activate. Values are in contracts.
 # If you exceed a position limit, the bot will log and stop quoting that side.
 CHECK_POSITION_LIMITS = False
-MIN_POSITION = -10000
-MAX_POSITION = 10000
+MIN_POSITION = -2
+MAX_POSITION = 2
 
 # If True, will only send orders that rest in the book (ExecInst: ParticipateDoNotInitiate).
 # Use to guarantee a maker rebate.
@@ -88,7 +88,7 @@ DRY_RUN = False
 LOOP_INTERVAL = 5
 
 # Wait times between orders / errors
-API_REST_INTERVAL = 1
+API_REST_INTERVAL = 10
 API_ERROR_INTERVAL = 10
 
 # If we're doing a dry run, use these numbers for BTC balances
@@ -115,4 +115,4 @@ WATCHED_FILES = [join("market_maker", f) for f in ["market_maker.py", "bitmex.py
 ########################################################################################################################
 
 # Specify the contracts that you hold. These will be used in portfolio calculations.
-CONTRACTS = ['XBTUSD']
+CONTRACTS = ['ETHXBT']
