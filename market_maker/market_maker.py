@@ -8,7 +8,7 @@ import requests
 import atexit
 import signal
 
-from market_maker import bitmex
+from market_maker import bitmex, bitbank
 from market_maker.settings import settings
 from market_maker.utils import log, constants, errors, math
 
@@ -267,6 +267,9 @@ class OrderManager:
                 self.start_position_buy = ticker["buy"]
             if ticker['sell'] == self.exchange.get_lowest_sell()['price']:
                 self.start_position_sell = ticker["sell"]
+        buy_below_percent, sell_above_percent = bitbank.get_buy_below_sell_above_percents()
+        self.start_position_buy *= buy_below_percent
+        self.start_position_sell *= sell_above_percent
 
         # Back off if our spread is too small.
         if self.start_position_buy * (1.00 + settings.MIN_SPREAD) > self.start_position_sell:
