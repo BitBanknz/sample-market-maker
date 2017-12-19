@@ -16,7 +16,7 @@ def get_buy_below_sell_above_percents(currency_pair='btc_eth'):
     except Exception as e:
         print(e)
         return 1.01, 1.01
-    estimated_future_price = float(featureset['estimated_future_wavg_5'])
+    estimated_future_price = (float(featureset['estimated_future_wavg_5']) + float(featureset['estimated_future_wavg_30']) + float(featureset['estimated_future_wavg_60'])) / 3.
     buy_below_percent = estimated_future_price * .995
     sell_above_percent = estimated_future_price * 1.005
     #take % off

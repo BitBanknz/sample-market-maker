@@ -1,7 +1,7 @@
-BitMEX Market Maker
+BitBank/BitMEX Market Maker
 ===================
 
-This is a sample market making bot for use with [BitMEX](https://www.bitmex.com).
+A fork of the sample market making bot for use with [BitMEX](https://www.bitmex.com) edited to have some sensible defaults for trading ethereum futures and to take into account projections in the base poloniex price from the https://BitBank.nz API
 
 It is free to use and modify for your own strategies. It provides the following:
 
@@ -26,7 +26,8 @@ It is free to use and modify for your own strategies. It provides the following:
 
 Getting Started
 ---------------
-
+1. Create a [BitBank.nz 1 day free trial Account for Live Crypto Forecasts](https://BitBank.nz)
+1. copy your api key to YOUR_API_KEY
 1. Create a [Testnet BitMEX Account](https://testnet.bitmex.com) and [deposit some TBTC](https://testnet.bitmex.com/app/deposit).
 1. Get dependencies: `python setup.py install`
     * This will create a `settings.py` file at the root. Modify this file to tune parameters.
@@ -35,6 +36,7 @@ Getting Started
     * Note that user/password authentication is not supported.
     * Run with DRY_RUN=True to test cost and spread.
 1. Run it: `./marketmaker [symbol]`
+1. For more reliability run it with watch and timeout to restart every so oftern and keep runnning if it errors e.g. `watch timeout --signal=KILL 1000 ./marketmaker ETHZ17`
 1. Satisfied with your bot's performance? Create a [live API Key](https://www.bitmex.com/app/apiKeys) for your
    BitMEX account, set the `BASE_URL` and start trading!
 
