@@ -85,11 +85,11 @@ DRY_RUN = False
 # How often to re-check and replace orders.
 # Generally, it's safe to make this short because we're fetching from websockets. But if too many
 # order amend/replaces are done, you may hit a ratelimit. If so, email BitMEX if you feel you need a higher limit.
-LOOP_INTERVAL = 10
+LOOP_INTERVAL = 20
 
 # Wait times between orders / errors
-API_REST_INTERVAL = 10
-API_ERROR_INTERVAL = 10
+API_REST_INTERVAL = 20
+API_ERROR_INTERVAL = 20
 
 # If we're doing a dry run, use these numbers for BTC balances
 DRY_BTC = 50
