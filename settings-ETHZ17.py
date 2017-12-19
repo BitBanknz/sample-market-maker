@@ -10,9 +10,8 @@ BASE_URL = "https://www.bitmex.com/api/v1/"
 # BASE_URL = "https://www.bitmex.com/api/v1/" # Once you're ready, uncomment this.
 
 # The BitMEX API requires permanent API keys. Go to https://testnet.bitmex.com/api/apiKeys to fill these out.
-API_KEY = ""
-API_SECRET = ""
-
+# API_KEY = ""
+# API_SECRET = ""
 
 ########################################################################################################################
 # Target
@@ -20,7 +19,6 @@ API_SECRET = ""
 
 # Instrument to market make on BitMEX.
 SYMBOL = "ETHZ17"
-
 
 ########################################################################################################################
 # Order Size & Spread
@@ -55,8 +53,7 @@ MAINTAIN_SPREADS = True
 # it will be resubmitted.
 #
 # 0.01 == 1%
-RELIST_INTERVAL = 0.0005
-
+# RELIST_INTERVAL = 0.01
 
 ########################################################################################################################
 # Trading Behavior
@@ -104,11 +101,10 @@ LOG_LEVEL = logging.INFO
 # If you are running multiple bots on the same symbol, give them unique ORDERID_PREFIXes - otherwise they will
 # cancel each others' orders.
 # Max length is 13 characters.
-ORDERID_PREFIX = "mm_bitmex_"
+ORDERID_PREFIX = "mm_bitmex_eth"
 
 # If any of these files (and this file) changes, reload the bot.
 WATCHED_FILES = [join("market_maker", f) for f in ["market_maker.py", "bitmex.py", __file__]]
-
 
 ########################################################################################################################
 # BitMEX Portfolio

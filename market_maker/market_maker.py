@@ -507,8 +507,7 @@ class OrderManager:
             sys.stdout.write("-----\n")
             sys.stdout.flush()
 
-            self.check_file_change()
-            sleep(settings.LOOP_INTERVAL)
+
 
             # This will restart on very short downtime, but if it's longer,
             # the MM will crash entirely as it is unable to connect to the WS on boot.
@@ -519,6 +518,9 @@ class OrderManager:
             self.sanity_check()  # Ensures health of mm - several cut-out points here
             self.print_status()  # Print skew, delta, etc
             self.place_orders()  # Creates desired orders and converges to existing orders
+
+            # self.check_file_change()
+            sleep(settings.LOOP_INTERVAL)
 
     def restart(self):
         logger.info("Restarting the market maker...")
