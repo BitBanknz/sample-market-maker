@@ -251,8 +251,9 @@ class OrderManager:
 
     def get_ticker(self):
         ticker = self.exchange.get_ticker()
-        tickLog = self.exchange.get_instrument()['tickLog']
-
+        instrument = self.exchange.get_instrument()
+        tickLog = instrument['tickLog']
+        symbol = instrument['symbol']
         # Set up our buy & sell positions as the smallest possible unit above and below the current spread
         # and we'll work out from there. That way we always have the best price but we don't kill wide
         # and potentially profitable spreads.
@@ -267,7 +268,13 @@ class OrderManager:
                 self.start_position_buy = ticker["buy"]
             if ticker['sell'] == self.exchange.get_lowest_sell()['price']:
                 self.start_position_sell = ticker["sell"]
-        buy_below_percent, sell_above_percent = bitbank.get_buy_below_sell_above_percents()
+        if symbol.lower().startswith('eth'):
+            buy_below_percent, sell_above_percent = bitbank.get_buy_below_sell_above_percents()
+        elif symbol.lower().startswith('ltc'):
+            buy_below_percent, sell_above_percent = bitbank.get_buy_below_sell_above_percents('btc_ltc')
+        elif symbol == 'XBTUSD':
+            buy_below_percent, sell_above_percent = bitbank.get_buy_below_sell_above_percents('usdt_btc')
+
         self.start_position_buy *= buy_below_percent
         self.start_position_sell *= sell_above_percent
 
