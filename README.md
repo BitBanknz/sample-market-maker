@@ -39,6 +39,7 @@ Getting Started
 1. For more reliability run it with watch and timeout to restart every so oftern and keep runnning if it errors e.g. 
 `while true; do timeout --signal=KILL 1000 ./marketmaker ETHZ17; done`
 `while true; do timeout --signal=KILL 1000 ./marketmaker LTCZ17; done`
+`while true; do timeout --signal=KILL 1000 ./marketmaker XBTUSD; done`
 1. Satisfied with your bot's performance? Create a [live API Key](https://www.bitmex.com/app/apiKeys) for your
    BitMEX account, set the `BASE_URL` and start trading!
 
