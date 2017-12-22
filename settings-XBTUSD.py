@@ -30,7 +30,7 @@ ORDER_PAIRS = 2
 # ORDER_START_SIZE will be the number of contracts submitted on level 1
 # Number of contracts from level 1 to ORDER_PAIRS - 1 will follow the function
 # [ORDER_START_SIZE + ORDER_STEP_SIZE (Level -1)]
-ORDER_START_SIZE = 100
+ORDER_START_SIZE = 200
 ORDER_STEP_SIZE = 0
 
 # Distance between successive orders, as a percentage (example: 0.005 for 0.5%)
@@ -62,8 +62,8 @@ MAINTAIN_SPREADS = True
 # Position limits - set to True to activate. Values are in contracts.
 # If you exceed a position limit, the bot will log and stop quoting that side.
 CHECK_POSITION_LIMITS = True
-MIN_POSITION = -900
-MAX_POSITION = 1000
+MIN_POSITION = -000
+MAX_POSITION = 0
 
 # If True, will only send orders that rest in the book (ExecInst: ParticipateDoNotInitiate).
 # Use to guarantee a maker rebate.

@@ -268,12 +268,23 @@ class OrderManager:
                 self.start_position_buy = ticker["buy"]
             if ticker['sell'] == self.exchange.get_lowest_sell()['price']:
                 self.start_position_sell = ticker["sell"]
+        base_currency_pair = 'btc_eth'
         if symbol.lower().startswith('eth'):
-            buy_below_percent, sell_above_percent = bitbank.get_buy_below_sell_above_percents()
+            base_currency_pair = 'btc_eth'
         elif symbol.lower().startswith('ltc'):
-            buy_below_percent, sell_above_percent = bitbank.get_buy_below_sell_above_percents('btc_ltc')
+            base_currency_pair = 'btc_ltc'
+        elif symbol.lower().startswith('xmr'):
+            base_currency_pair = 'btc_xmr'
+        elif symbol.lower().startswith('xrp'):
+            base_currency_pair = 'btc_xrp'
+        elif symbol.lower().startswith('zec'):
+            base_currency_pair = 'btc_zec'
         elif symbol == 'XBTUSD':
-            buy_below_percent, sell_above_percent = bitbank.get_buy_below_sell_above_percents('usdt_btc')
+            base_currency_pair = 'usdt_btc'
+        else:
+            logger.error("unable to get base currency correctly")
+
+        buy_below_percent, sell_above_percent = bitbank.get_buy_below_sell_above_percents(base_currency_pair)
 
         self.start_position_buy *= buy_below_percent
         self.start_position_sell *= sell_above_percent
