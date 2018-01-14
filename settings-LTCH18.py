@@ -18,7 +18,7 @@ BASE_URL = "https://www.bitmex.com/api/v1/"
 ########################################################################################################################
 
 # Instrument to market make on BitMEX.
-SYMBOL = "XMRZ17"
+SYMBOL = "LTCH18"
 
 ########################################################################################################################
 # Order Size & Spread
@@ -62,8 +62,8 @@ MAINTAIN_SPREADS = True
 # Position limits - set to True to activate. Values are in contracts.
 # If you exceed a position limit, the bot will log and stop quoting that side.
 CHECK_POSITION_LIMITS = True
-MIN_POSITION = -4
-MAX_POSITION = 4
+MIN_POSITION = -1
+MAX_POSITION = 1
 
 # If True, will only send orders that rest in the book (ExecInst: ParticipateDoNotInitiate).
 # Use to guarantee a maker rebate.
@@ -101,7 +101,7 @@ LOG_LEVEL = logging.INFO
 # If you are running multiple bots on the same symbol, give them unique ORDERID_PREFIXes - otherwise they will
 # cancel each others' orders.
 # Max length is 13 characters.
-ORDERID_PREFIX = "mm_bitmex_eth"
+ORDERID_PREFIX = "mm_bitmex_ltc"
 
 # If any of these files (and this file) changes, reload the bot.
 WATCHED_FILES = [join("market_maker", f) for f in ["market_maker.py", "bitmex.py", __file__]]
@@ -111,4 +111,4 @@ WATCHED_FILES = [join("market_maker", f) for f in ["market_maker.py", "bitmex.py
 ########################################################################################################################
 
 # Specify the contracts that you hold. These will be used in portfolio calculations.
-CONTRACTS = ['XMRZ17']
+CONTRACTS = ['LTCH18']

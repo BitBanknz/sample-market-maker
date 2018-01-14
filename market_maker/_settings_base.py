@@ -19,7 +19,7 @@ API_SECRET = ""
 ########################################################################################################################
 
 # Instrument to market make on BitMEX.
-SYMBOL = "ETHZ17"
+SYMBOL = "ETHH18"
 
 
 ########################################################################################################################
@@ -115,4 +115,4 @@ WATCHED_FILES = [join("market_maker", f) for f in ["market_maker.py", "bitmex.py
 ########################################################################################################################
 
 # Specify the contracts that you hold. These will be used in portfolio calculations.
-CONTRACTS = ['ETHZ17']
+CONTRACTS = ['ETHH18']

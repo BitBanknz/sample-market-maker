@@ -18,7 +18,7 @@ BASE_URL = "https://www.bitmex.com/api/v1/"
 ########################################################################################################################
 
 # Instrument to market make on BitMEX.
-SYMBOL = "ETHZ17"
+SYMBOL = "ETHH18"
 
 ########################################################################################################################
 # Order Size & Spread
@@ -111,4 +111,4 @@ WATCHED_FILES = [join("market_maker", f) for f in ["market_maker.py", "bitmex.py
 ########################################################################################################################
 
 # Specify the contracts that you hold. These will be used in portfolio calculations.
-CONTRACTS = ['ETHZ17']
+CONTRACTS = ['ETHH18']
