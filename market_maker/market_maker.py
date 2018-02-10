@@ -452,7 +452,7 @@ class OrderManager:
         ticker = self.get_ticker()
 
         # Sanity check:
-        if self.get_price_offset(-1) >= ticker["sell"] or self.get_price_offset(1) <= ticker["buy"]:
+        if self.get_price_offset(-1) >= ticker["sell"] + 0.00001 or self.get_price_offset(1) + .00001 <= ticker["buy"]:
             logger.error("Buy: %s, Sell: %s" % (self.start_position_buy, self.start_position_sell))
             logger.error("First buy position: %s\nBitMEX Best Ask: %s\nFirst sell position: %s\nBitMEX Best Bid: %s" %
                          (self.get_price_offset(-1), ticker["sell"], self.get_price_offset(1), ticker["buy"]))
