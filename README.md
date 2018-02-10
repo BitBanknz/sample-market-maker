@@ -33,14 +33,11 @@ Getting Started
 1. Create a [BitBank.nz 1 day free trial Account for Live Crypto Forecasts](https://BitBank.nz)
 1. copy your api key to YOUR_API_KEY in market_maker/bitbank.py
 1. Create a [Testnet BitMEX Account](https://testnet.bitmex.com) and [deposit some TBTC](https://testnet.bitmex.com/app/deposit).
-1. Get dependencies: `python setup.py install`
-    * This will create a `settings.py` file at the root. Modify this file to tune parameters.
-    * Also you can create overrides for settigs.py for specific pairs e.g. see `settings-XBTUSD.py` for bitcoin specific defaults
-    * Alternatively, if you use `virtualenv`, create a venv and run `pip install -r requirements.txt`.
-Alternative Install with pip: `pip install bitmex-market-maker`
+1. Install with pip: `pip install bitmex-market-maker`
 Create a marketmaker project: run `marketmaker setup`
     * This will create `settings.py` and `market_maker/` in the working directory.
     * Modify `settings.py` to tune parameters.
+    * Also you can create overrides for settigs.py for specific pairs e.g. see `settings-XBTUSD.py` for bitcoin specific defaults
 
 1. Edit settings.py to add your [BitMEX API Key and Secret](https://testnet.bitmex.com/app/apiKeys) and change bot parameters.
     * Note that user/password authentication is not supported.
