@@ -3,7 +3,8 @@ from datetime import timedelta
 import logging
 import requests
 
-from utils.timehelper import timehelper
+# from utils.timehelper import timehelper
+from market_maker.utils.timehelper import timehelper
 
 logger = logging.getLogger('root')
 
