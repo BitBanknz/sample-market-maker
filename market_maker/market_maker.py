@@ -32,7 +32,8 @@ class ExchangeInterface:
             self.symbol = settings.SYMBOL
         self.bitmex = bitmex.BitMEX(base_url=settings.BASE_URL, symbol=self.symbol,
                                     apiKey=settings.API_KEY, apiSecret=settings.API_SECRET,
-                                    orderIDPrefix=settings.ORDERID_PREFIX, postOnly=settings.POST_ONLY)
+                                    orderIDPrefix=settings.ORDERID_PREFIX, postOnly=settings.POST_ONLY,
+                                    timeout=settings.TIMEOUT)
 
     def cancel_order(self, order):
         tickLog = self.get_instrument()['tickLog']
@@ -207,7 +208,6 @@ class OrderManager:
 
         logger.info("Using symbol %s." % self.exchange.symbol)
 
-    def init(self):
         if settings.DRY_RUN:
             logger.info("Initializing dry run. Orders printed below represent what would be posted to BitMEX.")
         else:
@@ -226,9 +226,6 @@ class OrderManager:
 
         # Create orders and converge.
         self.place_orders()
-
-        if settings.DRY_RUN:
-            sys.exit()
 
     def print_status(self):
         """Print the current MM status."""
@@ -446,14 +443,14 @@ class OrderManager:
     ###
 
     def short_position_limit_exceeded(self):
-        "Returns True if the short position limit is exceeded"
+        """Returns True if the short position limit is exceeded"""
         if not settings.CHECK_POSITION_LIMITS:
             return False
         position = self.exchange.get_delta()
         return position <= settings.MIN_POSITION
 
     def long_position_limit_exceeded(self):
-        "Returns True if the long position limit is exceeded"
+        """Returns True if the long position limit is exceeded"""
         if not settings.CHECK_POSITION_LIMITS:
             return False
         position = self.exchange.get_delta()
@@ -483,7 +480,7 @@ class OrderManager:
             logger.error("Sanity check failed, exchange data is inconsistent")
             self.exit()
 
-        # Messanging if the position limits are reached
+        # Messaging if the position limits are reached
         if self.long_position_limit_exceeded():
             logger.info("Long delta limit exceeded")
             logger.info("Current Position: %.f, Maximum Position: %.f" %
@@ -569,7 +566,6 @@ def run():
     om = OrderManager()
     # Try/except just keeps ctrl-c from printing an ugly stacktrace
     try:
-        om.init()
         om.run_loop()
     except (KeyboardInterrupt, SystemExit):
         sys.exit()

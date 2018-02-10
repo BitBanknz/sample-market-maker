@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 BitBank/BitMEX Market Maker
 ===================
+=======
+# BitMEX Market Maker
+>>>>>>> dd4071de84a7f46816ab58a8fd530750dc652b05
 
 A fork of the sample market making bot for use with [BitMEX](https://www.bitmex.com) edited to have some sensible defaults for trading ethereum futures and to take into account projections in the base poloniex price from the https://BitBank.nz API
 
@@ -11,7 +15,7 @@ It is free to use and modify for your own strategies. It provides the following:
   * Withdrawals may be requested (but they still must be confirmed via email and 2FA).
   * Connection errors and WebSocket reconnection is handled for you.
   * [Permanent API Key](https://testnet.bitmex.com/app/apiKeys) support is included.
-* A scaffolding for building your own trading strategies.
+* [A scaffolding for building your own trading strategies.](#advanced-usage)
   * Out of the box, a simple market making strategy is implemented that blankets the bid and ask.
   * More complicated strategies are up to the user. Try incorporating [index data](https://testnet.bitmex.com/app/index/.XBT),
     query other markets to catch moves early, or develop your own completely custom strategy.
@@ -33,6 +37,11 @@ Getting Started
     * This will create a `settings.py` file at the root. Modify this file to tune parameters.
     * Also you can create overrides for settigs.py for specific pairs e.g. see `settings-XBTUSD.py` for bitcoin specific defaults
     * Alternatively, if you use `virtualenv`, create a venv and run `pip install -r requirements.txt`.
+Alternative Install with pip: `pip install bitmex-market-maker`
+Create a marketmaker project: run `marketmaker setup`
+    * This will create `settings.py` and `market_maker/` in the working directory.
+    * Modify `settings.py` to tune parameters.
+
 1. Edit settings.py to add your [BitMEX API Key and Secret](https://testnet.bitmex.com/app/apiKeys) and change bot parameters.
     * Note that user/password authentication is not supported.
     * Run with DRY_RUN=True to test cost and spread.
@@ -42,18 +51,18 @@ Getting Started
 `while true; do timeout --signal=KILL 1000 ./marketmaker LTCH18; done`
 `while true; do timeout --signal=KILL 1000 ./marketmaker XBTUSD; done`
 1. Satisfied with your bot's performance? Create a [live API Key](https://www.bitmex.com/app/apiKeys) for your
+
    BitMEX account, set the `BASE_URL` and start trading!
 
-Operation Overview
-------------------
+## Operation Overview
 
 This market maker works on the following principles:
 
-* The MM tracks the last `bidPrice` and `askPrice` of the quoted instrument to determine where to start quoting.
-* Based on parameters set the user, the bot creates a descriptions of orders it would like to place.
+* The market maker tracks the last `bidPrice` and `askPrice` of the quoted instrument to determine where to start quoting.
+* Based on parameters set by the user, the bot creates a descriptions of orders it would like to place.
   - If `settings.MAINTAIN_SPREADS` is set, the bot will start inside the current spread and work outwards.
   - Otherwise, spread is determined by interval calculations.
-* If the user specified position limits, these are checked. If the current position is beyond a limit,
+* If the user specifies position limits, these are checked. If the current position is beyond a limit,
   the bot stops quoting that side of the market.
 * These order descriptors are compared with what the bot has currently placed in the market.
   - If an existing order can be amended to the desired value, it is amended.
@@ -61,8 +70,7 @@ This market maker works on the following principles:
   - Extra orders are canceled.
 * The bot then prints details of contracts traded, tickers, and total delta.
 
-Simplified Output
------------------
+## Simplified Output
 
 The following is some of what you can expect when running this bot:
 
@@ -103,9 +111,64 @@ The following is some of what you can expect when running this bot:
 
 ```
 
+## Advanced usage
 
-Notes on Rate Limiting
-----------------------
+You can implement custom trading strategies using the market maker. `market_maker.OrderManager'
+controls placing, updating, and monitoring orders on BitMEX. To implement your own custom
+strategy, subclass `market_maker.OrderManager` and override `OrderManager.place_orders()`:
+
+```
+from market_maker.market_maker import OrderManager
+
+class CustomOrderManager(OrderManager):
+    def place_orders(self) -> None:
+        # implement your custom strategy here
+```
+
+Your strategy should provide a set of orders. An order is a dict containing price, quantity, and
+whether the order is buy or sell. For example:
+
+```
+buy_order = {
+    'price': 1234.5, # float
+    'orderQty': 100, # int
+    'side': 'Buy'
+}
+
+sell_order = {
+    'price': 9876.5, # float
+    'orderQty': 100, # int
+    'side': 'Sell'
+}
+```
+
+Call `self.converge_orders()` to submit your orders. `converge_orders()` will create, amend,
+and delete orders on BitMEX as necessary to match what you pass in:
+
+```
+def place_orders(self) -> None:
+    buy_orders = []
+    sell_orders = []
+
+    # populate buy and sell orders, e.g.
+    buy_orders.append({'price': 998.0, 'orderQty': 100, 'side': "Buy"})
+    buy_orders.append({'price': 999.0, 'orderQty': 100, 'side': "Buy"})
+    sell_orders.append({'price': 1000.0, 'orderQty': 100, 'side': "Sell"})
+    sell_orders.append({'price': 1001.0, 'orderQty': 100, 'side': "Sell"})
+
+    self.converge_orders(buy_orders, sell_orders)
+```
+
+To run your strategy, call `run_loop()`:
+```
+order_manager = CustomOrderManager()
+order_manager.run_loop()
+```
+
+Your custom strategy will run until you terminate the program with CTRL-C. There is an example
+in `custom_strategy.py`.
+
+## Notes on Rate Limiting
 
 By default, the BitMEX API rate limit is 300 requests per 5 minute interval (avg 1/second).
 
@@ -122,18 +185,19 @@ If you are quoting multiple contracts and your ratelimit is becoming an obstacle
 [email support](mailto:support@bitmex.com) with details of your quoting. In the vast majority of cases,
 we are able to raise a user's ratelimit without issue.
 
-Troubleshooting
----------------
+## Troubleshooting
 
 Common errors we've seen:
 
 * `TypeError: __init__() got an unexpected keyword argument 'json'`
-  * This is caused by an outdated version of `requests`. Run `pip install requests` to update.
+  * This is caused by an outdated version of `requests`. Run `pip install -U requests` to update.
 
 
-Compatibility
--------------
+## Compatibility
 
-This module is compatible with both Python 2 and 3 using Python's `future` module.
+This module supports Python 3.5 and later.
 
-Some helpful tips on Py2/3 compatibility: http://python-future.org/compatible_idioms.html
+## See also
+
+BitMEX has a Python [REST client](https://github.com/BitMEX/api-connectors/tree/master/official-http/python-swaggerpy)
+and [websocket client.](https://github.com/BitMEX/api-connectors/tree/master/official-ws/python)

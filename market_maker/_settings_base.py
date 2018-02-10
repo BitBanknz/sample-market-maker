@@ -90,6 +90,7 @@ LOOP_INTERVAL = 20
 # Wait times between orders / errors
 API_REST_INTERVAL = 1
 API_ERROR_INTERVAL = 1
+TIMEOUT = 7
 
 # If we're doing a dry run, use these numbers for BTC balances
 DRY_BTC = 50
@@ -107,7 +108,7 @@ LOG_LEVEL = logging.INFO
 ORDERID_PREFIX = "mm_bitmex_"
 
 # If any of these files (and this file) changes, reload the bot.
-WATCHED_FILES = [join("market_maker", f) for f in ["market_maker.py", "bitmex.py", __file__]]
+WATCHED_FILES = [join('market_maker', 'market_maker.py'), join('market_maker', 'bitmex.py'), 'settings.py']
 
 
 ########################################################################################################################
