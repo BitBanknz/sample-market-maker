@@ -42,11 +42,11 @@ Create a marketmaker project: run `marketmaker setup`
 1. Edit settings.py to add your [BitMEX API Key and Secret](https://testnet.bitmex.com/app/apiKeys) and change bot parameters.
     * Note that user/password authentication is not supported.
     * Run with DRY_RUN=True to test cost and spread.
-1. Run it: `./marketmaker [symbol]`
+1. Run it: `python3 ./marketmaker [symbol]`
 1. For more reliability run it with watch and timeout to restart every so oftern and keep runnning if it errors e.g.
-`while true; do timeout --signal=KILL 1000 ./marketmaker ETHH18; done`
-`while true; do timeout --signal=KILL 1000 ./marketmaker LTCH18; done`
-`while true; do timeout --signal=KILL 1000 ./marketmaker XBTUSD; done`
+`while true; do timeout --signal=KILL 1000 python3 ./marketmaker ETHH18; done`
+`while true; do timeout --signal=KILL 1000 python3 ./marketmaker LTCH18; done`
+`while true; do timeout --signal=KILL 1000 python3 ./marketmaker XBTUSD; done`
 1. Satisfied with your bot's performance? Create a [live API Key](https://www.bitmex.com/app/apiKeys) for your
 
    BitMEX account, set the `BASE_URL` and start trading!

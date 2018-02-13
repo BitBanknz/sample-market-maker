@@ -11,7 +11,7 @@ logger = logging.getLogger('root')
 def get_estimated_future_price(currency_pair='btc_eth'):
     request = requests.get('https://bitbank.nz/api/forecasts/' + currency_pair + '?secret=YOUR_API_KEY')
     if request.status_code != 200:
-        print("request error code: {}, {}".format(request.status_code, request.text))
+        logger.info("request error code: {}, {}".format(request.status_code, request.text))
     featureset = request.json()['results']
     return float(featureset['estimated_future_wavg_5'])
 
@@ -19,10 +19,10 @@ def get_buy_below_sell_above_percents(currency_pair='btc_eth'):
     try:
         request = requests.get('https://bitbank.nz/api/forecasts/' + currency_pair + '?secret=YOUR_API_KEY')
         if request.status_code != 200:
-            print("request error code: {}, {}".format(request.status_code, request.text))
+            logger.info("request error code: {}, {}".format(request.status_code, request.text))
         featureset = request.json()['results']
     except Exception as e:
-        print(e)
+        logger.info(e)
         return 1 - .03, 1.03
     time_to_ignore_forecasts = timehelper.to_posix(timehelper.now() - timedelta(minutes=3))
     if featureset['date'] < time_to_ignore_forecasts:
@@ -49,7 +49,7 @@ def get_buy_below_sell_above_percents(currency_pair='btc_eth'):
     float(featureset['wavg_distance_to_midpoint_percent60min']) > 0
         ):
         buy_below_percent = 1
-        print('buying! at ' + str(featureset['best_bid_price']))
+        logger.info('buying! at ' + str(featureset['best_bid_price']))
     if (float(featureset['estimated_future_wavg_5']) < 1 and
                 float(featureset['estimated_future_wavg_30']) < 1 and
     float(featureset['estimated_future_wavg_60']) < 1 and
@@ -60,6 +60,6 @@ def get_buy_below_sell_above_percents(currency_pair='btc_eth'):
     float(featureset['wavg_distance_to_midpoint_percent60min']) < 0
         ):
         sell_above_percent = 1
-        print('selling! at ' + str(featureset['best_ask_price']))
+        logger.info('selling! at ' + str(featureset['best_ask_price']))
 
     return buy_below_percent, sell_above_percent
