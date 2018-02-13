@@ -40,23 +40,13 @@ def get_buy_below_sell_above_percents(currency_pair='btc_eth'):
     # should buy?
 
     if (float(featureset['estimated_future_wavg_5']) > 1 and
-                float(featureset['estimated_future_wavg_30']) > 1 and
-    float(featureset['estimated_future_wavg_60']) > 1 and
-    float(featureset['estimated_future_wavg_120']) > 1 and
     float(featureset['power_imbalance']) > 1 and
-    float(featureset['wavg_distance_to_midpoint_percent30min']) > 0 and
-    float(featureset['wavg_distance_to_midpoint_percent5min']) > 0 and
     float(featureset['wavg_distance_to_midpoint_percent60min']) > 0
         ):
         buy_below_percent = 1
         logger.info('buying! at ' + str(featureset['best_bid_price']))
     if (float(featureset['estimated_future_wavg_5']) < 1 and
-                float(featureset['estimated_future_wavg_30']) < 1 and
-    float(featureset['estimated_future_wavg_60']) < 1 and
-    float(featureset['estimated_future_wavg_120']) < 1 and
     float(featureset['power_imbalance']) < 1 and
-    float(featureset['wavg_distance_to_midpoint_percent30min']) < 0 and
-    float(featureset['wavg_distance_to_midpoint_percent5min']) < 0 and
     float(featureset['wavg_distance_to_midpoint_percent60min']) < 0
         ):
         sell_above_percent = 1
