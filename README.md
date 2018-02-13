@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 BitBank/BitMEX Market Maker
 ===================
-=======
-# BitMEX Market Maker
->>>>>>> dd4071de84a7f46816ab58a8fd530750dc652b05
 
 A fork of the sample market making bot for use with [BitMEX](https://www.bitmex.com) edited to have some sensible defaults for trading ethereum futures and to take into account projections in the base poloniex price from the https://BitBank.nz API
 
