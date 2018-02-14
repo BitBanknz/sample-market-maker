@@ -69,7 +69,7 @@ MAX_POSITION = 100
 # Use to guarantee a maker rebate.
 # However -- orders that would have matched immediately will instead cancel, and you may end up with
 # unexpected delta. Be careful.
-POST_ONLY = False
+POST_ONLY = True
 
 ########################################################################################################################
 # Misc Behavior, Technicals
