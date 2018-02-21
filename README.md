@@ -26,20 +26,17 @@ It is free to use and modify for your own strategies. It provides the following:
 
 Getting Started
 ---------------
-1. Create a [BitBank.nz 1 day free trial Account for Live Crypto Forecasts](https://BitBank.nz)
-1. copy your api key to YOUR_API_KEY in market_maker/bitbank.py
-1. Create a [Testnet BitMEX Account](https://testnet.bitmex.com) and [deposit some TBTC](https://testnet.bitmex.com/app/deposit).
-1. Install with pip: `pip install bitmex-market-maker`
-Create a marketmaker project: run `marketmaker setup`
-    * This will create `settings.py` and `market_maker/` in the working directory.
-    * Modify `settings.py` to tune parameters.
-    * Also you can create overrides for settigs.py for specific pairs e.g. see `settings-XBTUSD.py` for bitcoin specific defaults
-
-1. Edit settings.py to add your [BitMEX API Key and Secret](https://testnet.bitmex.com/app/apiKeys) and change bot parameters.
+* Create a [BitBank.nz 1 day free trial Account for Live Crypto Forecasts](https://BitBank.nz)
+* copy your api key to YOUR_API_KEY in [Bitbank.py](market_maker/bitbank.py)
+* Create a [Testnet BitMEX Account](https://testnet.bitmex.com) and [deposit some TBTC](https://testnet.bitmex.com/app/deposit).
+* Clone this repo `git clone git@github.com:BitBanknz/sample-market-maker.git`
+* Install dependencies: `pip3 install -r requirements.txt`
+* Create `settings.py` to tune parameters and place your `API_KEY` and `API_SECRET` variables in there add your [BitMEX API Key and Secret](https://testnet.bitmex.com/app/apiKeys) and change bot parameters.
+    * Also you can create overrides for settings.py for specific pairs e.g. see `settings-XBTUSD.py` for bitcoin specific defaults
     * Note that user/password authentication is not supported.
     * Run with DRY_RUN=True to test cost and spread.
 1. Run it: `python3 ./marketmaker [symbol]`
-1. For more reliability run it with watch and timeout to restart every so oftern and keep runnning if it errors e.g.
+1. For more reliability run it with watch and timeout to restart every so often and keep running if it errors e.g.
 `while true; do timeout --signal=KILL 1000 python3 ./marketmaker ETHH18; done`
 `while true; do timeout --signal=KILL 1000 python3 ./marketmaker LTCH18; done`
 `while true; do timeout --signal=KILL 1000 python3 ./marketmaker XBTUSD; done`
@@ -53,8 +50,7 @@ This market maker works on the following principles:
 
 * The market maker tracks the last `bidPrice` and `askPrice` of the quoted instrument to determine where to start quoting.
 * Based on parameters set by the user, the bot creates a descriptions of orders it would like to place.
-  - If `settings.MAINTAIN_SPREADS` is set, the bot will start inside the current spread and work outwards.
-  - Otherwise, spread is determined by interval calculations.
+  - Spread is determined by interval calculations and by [Bitbank.py](market_maker/bitbank.py).
 * If the user specifies position limits, these are checked. If the current position is beyond a limit,
   the bot stops quoting that side of the market.
 * These order descriptors are compared with what the bot has currently placed in the market.
