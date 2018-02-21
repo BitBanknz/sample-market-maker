@@ -15,9 +15,22 @@ def get_estimated_future_price(currency_pair='btc_eth'):
     featureset = request.json()['results']
     return float(featureset['estimated_future_wavg_5'])
 
-sell_mode = None
+def set_sell_mode(mode):
+    with open('/tmp/sellmode.txt', 'w') as f:
+        f.write(str(mode))
+
+
+set_sell_mode(None)
+def get_sell_mode():
+    with open('/tmp/sellmode.txt', 'r') as f:
+        readline = f.readline()
+        if readline == "None":
+            return None
+        return readline == "True"
+
 
 def get_buy_below_sell_above_percents(currency_pair='btc_eth'):
+    global sell_mode
     try:
         request = requests.get('https://bitbank.nz/api/forecasts/' + currency_pair + '?secret=YOUR_API_KEY')
         if request.status_code != 200:
@@ -46,19 +59,19 @@ def get_buy_below_sell_above_percents(currency_pair='btc_eth'):
     float(featureset['wavg_distance_to_midpoint_percent60min']) > 0
         ):
         # buy_below_percent = 1
-        sell_mode=False
+        set_sell_mode(False)
         logger.info('buying! at ' + str(featureset['best_bid_price']))
     if (float(featureset['estimated_future_wavg_5']) < 1 and
     float(featureset['power_imbalance']) < 1 and
     float(featureset['wavg_distance_to_midpoint_percent60min']) < 0
         ):
         # sell_above_percent = 1
-        sell_mode = True
+        set_sell_mode(True)
         logger.info('selling! at ' + str(featureset['best_ask_price']))
-
+    sell_mode = get_sell_mode()
     if sell_mode == True:
-        sell_above_percent = 1.002
+        sell_above_percent = 1.0018
     if sell_mode == False:
-        buy_below_percent = 1 - .002
+        buy_below_percent = 1 - .0018
 
     return buy_below_percent, sell_above_percent
