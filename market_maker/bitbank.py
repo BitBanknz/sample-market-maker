@@ -87,8 +87,8 @@ def get_buy_below_sell_above_percents(currency_pair='btc_eth'):
         logger.warning('selling! at ' + str(featureset['best_ask_price']))
     sell_mode = get_sell_mode()
     if sell_mode == True:
-        sell_above_percent = 1.0008
+        sell_above_percent = 1#.0008
     if sell_mode == False:
-        buy_below_percent = 1 - .0008
+        buy_below_percent = 1 #- .0008
 
     return buy_below_percent, sell_above_percent
